@@ -1,8 +1,8 @@
-package shapesSVG;
+﻿package shapesSVG;
 
 /**
 * Interfaz funcional que sirve para tranformar un triángulo.
-* @author David Hernández Uriostegui
+* @author Escobar Rosales Luis Mario
 **/
 
 @FunctionalInterface
