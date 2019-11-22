@@ -1,145 +1,113 @@
+
 /**
-/*@author Escobar Rosales Luis Mario 
-/*Clase MatrixTests:
-**/
+ * @author Escobar Rosales Luis Mario
+ */
 public class MatrixTest{
-    
-    public static void scalarProduct_test(double scalar, Matrix b){
-	double [][] fin={{0.0,0.0,0.0,0.0},{0.0,0.5,1.0,1.5},{0.0,1.0,2.0,2.0}} ;
-	Matrix finn=new Matrix(fin);
-	b.scalarProduct(scalar);
-	if(b.equals(finn)){
-	    System.out.println("ScalarProduct Va bien");
-	}
-	else{
-	    System.out.println("ScalarProduct Va mal");
-	}
-	    
-	
-
+  
+    public static void scalarProduct_test() {
+        
+        double[][] t = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+        double[][] s = { { 2, 4, 6 }, { 8, 10, 12 }, { 14, 16, 18 } };
+        Matrix x = new Matrix(t);
+        Matrix y = new Matrix(s);
+        x.scalarProduct(2);
+        if (x.equals(y)) {
+            System.out.println("scalar product NICE ");
+        } else {
+            System.out.println("scalar product No nice :c");
+        }
     }
-/**
-/*Metodo add_test
-/*@param Matriz a; objeto de la clase Matrix
-/* Metodo que pone a prueba el metodo add de la clase Matrix.
-/* Imprime un mensaje si el metodo de la clase Matrix funciona bien o no
-**/    
-    public static void add_test(Matrix a){
-	double [][] array= {{0.0,0.0,0.0,0.0},{0.0,1.0,2.0,3.0},{0.0,2.0,4.0,4.0}};
-	Matrix comparacion= new Matrix(array);
-	a.add(a);
-	if(a.equals(comparacion)){
-	    System.out.println(" add esta funcionando");
-	}
-	else{
-	    System.out.println("Algo falló");
-	}
+
+    public static void add_test() {
+        
+        double[][] t = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+        double[][] s = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+        double[][] r = { { 2, 4, 6 }, { 8, 10, 12 }, { 14, 16, 18 } };
+        Matrix x = new Matrix(t);
+        Matrix y = new Matrix(s);
+        Matrix z = new Matrix(r);
+        x.add(y);
+        if (x.equals(z)) {
+            System.out.println("addition muy bien  ");
+        } else {
+            System.out.println("addition muy mal ");
+        }
+    }
+
+    public static void matrixProduct_test() {
+        
+        double[][] t = { { 2, 0 }, { 1, 3 } };
+        double[][] s = { { -1, -1 }, { 5, 6 } };
+        double[][] r = { { -2, -2 }, { 14, 17 } };
+        Matrix x = new Matrix(t);
+        Matrix y = new Matrix(s);
+        Matrix z = new Matrix(r);
+        x.matrixProduct(y);
+        if (x.equals(z)) {
+            System.out.println("matrixProduct :3 ");
+        } else {
+            System.out.println("matrixProduct :,v ");
+        }
+    }
+
+    public static void setElement_test() {
+         
+        double[][] t = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+        double[][] s = { { 0, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+        Matrix x = new Matrix(t);
+        Matrix y = new Matrix(s);
+        x.setElement(0, 0, 0);
+        if (x.getElement(0, 0) == 0) {
+            System.out.println("setElement Goodjob ");
+        } else {
+            System.out.println("setElement Badjob ");
+        }
+    }
+
+    public static void getElement_test() {
        
+        double[][] t = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+        Matrix x = new Matrix(t);
+        if (x.getElement(0, 0) == 1) {
+            System.out.println("getElement Salio bien ");
+        } else {
+            System.out.println("getElement Salio no tan bien ");
+        }
     }
-/**
-/*Metodo matrixProduct_test
-/* Metodo que pone a prueba el metodo matrixProduct  de la clase Matrix.
-/* Imprime un mensaje si el metodo de la clase Matrix funciona bien o no
-**/    
-    public static void matrixProduct_test(){
-	
-	double arreglo[][]={{2.0,0.0,1.0},{3.0,0.0,0.0},{5.0,1.0,1.0}};
-	Matrix c= new Matrix(arreglo);
-	double arreglo1[][]={{1.0,0.0,1.0},{1.0,2.0,1.0},{1.0,1.0,0.0}};
-	double arregRes[][]={{5.0,1.0,3.0},{3.0,0.0,3.0},{12.0,4.0,6.0}};
-	Matrix resp=new Matrix(arregRes);
-	Matrix d= new Matrix(arreglo1);
-	c.matrixProduct(d);
-	if(c.equals(resp)){
-	    System.out.println(" MatrixProduct Bien");
-	}
-	else{
-	    System.out.println(" MatrixProduct falló");
-	}
+
+    public static void determinant_test() {
+        
+        double[][] t ={{2,0},{-1,3}};
+        Matrix x = new Matrix(t);
+        x.determinant();
+        if (x.determinant ()==6){
+            System.out.println("Determinant creo que salio bien");  
+        }else{
+            System.out.println("Determinant :,u");
+        } 
     }
-/**
-/*Metodo setElement_test
-/* Metodo que pone a prueba el metodo setElement  de la clase Matrix.
-/* Imprime un mensaje si el metodo de la clase Matrix funciona bien o no
-**/        
-    public static void setElement_test(){
 
-	Matrix s= new Matrix (2,2);
-	int j=1;
-	int i=1;
-	double r=10.5;
-	s.setElement(i,j,r);
-	double comp=s.getElement(i,j);
-	
-	if(comp==r){
-	    System.out.println(" SetElement Nice");
-	}
-	else{
-	    System.out.println("SetElement :C");
-	}
-	
+    public static void equals_test() {
+        
+        double[][] t = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+        double[][] s = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+        Matrix x = new Matrix(t);
+        Matrix y = new Matrix(s);
+        if (x.equals(y) == true) {
+            System.out.println("equals succesfull ");
+        } else {
+            System.out.println("equals failed ");
+        }
     }
-    /**
-/*Metodo getElement_test()
-/* Metodo que pone a prueba el metodo getElement de la clase Matrix.
-/* Imprime un mensaje si el metodo de la clase Matrix funciona bien o no
-**/    
-    public static void getElement_test(){
 
-	double arreglo[][]={{2.0,0.0,1.0},{3.0,0.0,0.0},{5.0,1.0,10.0}};
-	Matrix c= new Matrix(arreglo);
-
-	if(c.getElement(2,2)==10){
-	    System.out.println(" GetElement Goodjob");
-	}
-	else{
-	    System.out.println("Chale");
-	}
-
-    }
-/**
-/*Metodo determinant__test
-/* Metodo que pone a prueba el metodo determinant de la clase Matrix.
-/* Imprime un mensaje si el metodo de la clase Matrix funciona bien o no
-**/    
-    public static void determinant_test(){
-
-	double[][] arrDet={{2.0,-3.0,1.0},{-3.0,5.0,7.0},{1.0,7.0,-1.0}};
-	Matrix mDet= new Matrix(arrDet);
-	double resp=-146;
-	double respDet=mDet.determinant();
-	if(resp==respDet){
-	    System.out.println(" Determinant funciona");
-	}
-	else{
-	    System.out.println("oDeterminant no funcionó -.-");
-	}
-    }
-    public static void equals_test(Matrix a, Matrix b){
-	if(a.equals(b)==false && a.equals(a)==true){
-	    System.out.println("Equals si sirve");
-
-	}
-	else{
-	    System.out.println("Equals valio ****");
-	}
-    }
-/**
-/*Metodo main
-/* Metodo que se ejecuta y manda a llamar a cada uno de los metodos test, tambien aqui se crean algunos objetos de la clase Matrix y unos valores que utlice en varios metodos de esta clase.
-**/    
     public static void main(String[] args) {
-	int n=6;
-	int m=6;
-	Matrix a= new Matrix(n,m);
-	double [][] array= {{0,0,0,0},{0,1,2,3},{0,2,4,4}};
-	Matrix b= new Matrix(array);
-        scalarProduct_test(.5,b);
-        add_test(b);
+        
+        scalarProduct_test();
+        add_test();
         matrixProduct_test();
         setElement_test();
         getElement_test();
         determinant_test();
-        equals_test(b,a);
+        equals_test();
     }
 }

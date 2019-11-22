@@ -1,168 +1,159 @@
-
-//@author Escobar Rosales Luis Mario
-public class Matrix{
-    double[][] matriz;
-
-    //Construye una matriz vacia de n por m
 /**
-/* Primer constructor de la clase Matrix
-/* @param int n;  filas
-/* @param int m;  columnas
-/*Crea una matriz de dimensiones nxm y a cada casilla le asigna el valor 0 por ser int.
-**/
-    public Matrix(int n, int m){
-	this.matriz= new double[n][m];
-	for(int i=0;i<n;i++){
-	    for(int j=0;j<m;j++){
-		this.matriz[i][j]=0;
-		
-	    }
+ * @author Escobar Rosales Luis Mario
+ */
 
-	}
-    }
-    //Construye una matriz dado un arreglo
-/**
-/* Segundo constructor de la clase Matrix
-/* @param double[][] array; arreglo bidimensional de la tipo double
-/*Crea una matriz con las misma magnitudes del arreglo y le asigna los mismos valores
-**/    
-    public Matrix(double[][] array){
-	matriz= new double[array.length][array[0].length];
-	for(int i=0;i<this.matriz.length;i++){
-	    for(int j=0;j<this.matriz[0].length;j++){
-		this.matriz[i][j]=array[i][j];		
-	    }
 
-	}
-    }
-    //Funcion que calcula producto escalar
-/**
-/* Metodo scalarProduct
-/* @param double scalar; numero por el que vamos a multiplicar cada casilla
-/*Recorre cada posicion de la matriz y multiplica el valor que tenia por el double scalar.
-**/    
-    public void scalarProduct(double scalar){
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-	for(int i=0;i<this.matriz.length;i++){
-	    for(int j=0;j<this.matriz[0].length;j++){
-		this.matriz[i][j]=this.matriz[i][j]*scalar;		
-	    }	    	
-	}
-    }
-    //Funcion que calcula suma de matrices
-/**
-/* Primer constructor de la clase Matrix
-/* @param Matrix m; recibe un objeto de la clase Matrix
-/*Compara las longitudes de ambas matrices, en caso de que sean iguales realiza la suma de casillas de cada una, en caso contrario no se puede realizar la suma 
-**/    
-    public void add(Matrix m){
-	if(this.matriz.length==m.matriz.length && this.matriz[0].length==m.matriz[0].length){
-	    for(int i=0; i<this.matriz.length;i++){
-		for(int j=0; j<this.matriz[0].length;j++){
-		    this.matriz[i][j]=this.matriz[i][j]+m.matriz[i][j];	
-		}	       
-	    }
-	}
+public class Matrix implements Iterable <Double>{
 
-    }
-    //Funcion que calcula producto de matrices
-/**
-/* Metodo matrixProduct
-/* @param Matrix m; recibe un objeto de la clase Matrix
-/*Mediante 3 fors realizo el metodo de calcularlas sacado de la seccion generalizacion de la pagina https://www.problemasyecuaciones.com/matrices/multiplicar-matrices-producto-matricial-ejemplos-explicados-propiedades-matriz.html 
-**/    
-    public void matrixProduct(Matrix m){
-	double[][] resp= new double[this.matriz.length][m.matriz[0].length];
-	double suma=0;
-	int aux=0;
-	int aux2=0;
-	if(this.matriz[0].length==m.matriz.length){
-	    for(int i=0;i<this.matriz.length;i++){
-		for(int j=0; j<this.matriz[i].length;j++){
-		    resp[i][j]+=this.matriz[i][j]*m.matriz[j][i];
-		    for(int z=0;z<this.matriz[0].length;z++){
-			resp[i][j]+=this.matriz[i][z]*m.matriz[z][j];
-		    }
-		}
-	    }
-	    this.matriz=resp; 	
-	}		
-	else{
-	    System.out.println("No se pueden multiplicar estas matrices");
-	}
+    private int f;
+    private int c;
+    private double [][]matrix;
 	
+    //Construye una matriz vacia de n por m
+    public Matrix(int n, int m){
+	    
+        this.f = n;
+	    this.c = m;
+	    this.matrix= new double [this.f][this.c];
     }
-/**
-/* Metodo getElement
-/* @param int i; posicion de la fila de donde queremos sacar el elemento
-/*@param int j; posicion de la columna de donde queremos obtener el elemento
-/* Regresa el valor de la matriz en la posicion [i][j]
-/* Devuelve un double
-**/     
-    //Funcion que obtiene el elemento i j
-    public double getElement(int i, int j){
-	return this.matriz[i][j];	    
-    }
-    //function set element
-/**
-/* Metodo setElement
-/* @param int i; posicion de la fila de donde queremos sacar el elemento
-/*@param int j; posicion de la columna de donde queremos obtener el elemento
-@param double e; el valor que vamos a cambiar en la posicion matriz[i][j]
-/*Cambia el valor de la matriz en la posicion matriz[i][j] por el valor de e 
-**/     
-    public void setElement(int i, int j,double e){
-	for(int l=0;l<this.matriz.length;l++){
-	    for(int k=0;k<this.matriz[0].length;k++){
-		if(l==i && k==j){
-		    this.matriz[i][j]=e;		
-		}
-	    }
-	}
-    }
-    //Funcion que calcula el determinante si es nxn
-/**
-/* Metodo determinant
-/* Metodo que calcula la determinante de una matriz nxn 
-/* Devuelve un double
-**/     
-    public double determinant(){
 
-        for(int k=0; k<this.matriz.length-1; k++){
-            for(int i=k+1; i<this.matriz.length; i++){
-                for(int j=k+1; j<this.matriz.length; j++){
-                    this.matriz[i][j]-=this.matriz[i][k]*this.matriz[k][j]/this.matriz[k][k];
-                }
-            }
-        }
-        double deter=1.0;
-        for(int i=0; i<this.matriz.length; i++){
-            deter*=this.matriz[i][i];
-        }
-        return deter;
+    //Construye una matriz dado un arreglo
+    public Matrix(double[][] array){
+	    
+        this.matrix = array;
     }
     
-/**
-/* metodo equals de tipo boolean 
-/* @param  objeto de la clase Matrix
-/* Compara la longitud de ambas matrices, en caso de ser iguales compara cada una de la casilla de los elementos, en caso de ser iguales regresa true, en caso opuesto regresa false
-**/
-    public boolean equals(Matrix o){
-
-	if(this.matriz.length==o.matriz.length && this.matriz[0].length==o.matriz[0].length){
-	    for(int i=0; i<this.matriz.length;i++){
-		for(int j=0; j<this.matriz[0].length;j++){
-		    if(this.matriz[i][j]!=o.matriz[i][j]){
-			return false;
-		    }
+    //Función que calcula producto escalar
+    public void scalarProduct(double scalar){
+	    
+        for (int a=0;a<this.matrix.length;a++){
+			for (int b=0;b<this.matrix[0].length;b++){
+				this.matrix[a][b] = this.matrix[a][b]*scalar;
+			}	
 		}
-	    }
-	    return true;
 	}
-	else{
-	    return false;
-	}
-	
 
+    //Función que calcula suma de matrices
+    public void add(Matrix m){
+	        
+        for(int a = 0; a< this.matrix.length; a++){
+            for (int b = 0; b<this.matrix[0].length; b++){
+                this.matrix [a][b] = this.matrix [a][b] + m.matrix [a][b];
+		    }
+        }
+	}
+
+    //Función que calcula producto de matrices
+    public void matrixProduct(Matrix m){
+
+        int tc=m.matrix[0].length,tf=this.matrix.length;
+		double mat[][]=new double[tf][tc];
+		for(int a=0;a<this.matrix.length;a++){
+	        for(int b=0;b<m.matrix[0].length;b++){
+			    for(int c=0;c<m.matrix.length;c++){
+				    mat [a][b]+=this.matrix[a][c]*m.matrix[c][b];
+				 }
+			}
+        } this.matrix=mat;
+	}
+
+    //Función que obtiene el elemento i j
+    public double getElement(int i, int j){
+        
+        return this.matrix[i][j];
+	}
+    
+    //Funcion set element
+    public void setElement(int i, int j,double e){
+
+        this.matrix[i][j]=e;
+	}
+
+    //Función que calcula el determinante si es nxn
+    public double determinant(){
+         
+        if(matrix.length!=matrix[0].length){
+            return 0;   
+        }
+        double res = 0;
+        if (matrix.length == 1){
+            res = matrix [0][0];
+            return res;
+        }
+        if (matrix.length ==2){
+            res = ((matrix [0][0]* matrix [1][1])-(matrix[0][1]*matrix[1][0]));
+            return res;
+        } return res;
+    }
+
+    //Función que te dice si 2 matrices son iguales
+    @Override
+    public boolean equals(Object o){
+        
+        if(o instanceof Matrix){
+			Matrix mat = (Matrix)o;
+			if(mat.matrix.length == this.matrix.length){
+				if (mat.matrix[0].length == this.matrix[0].length){
+					for (int a=0;a<mat.matrix.length;a++){
+						for (int b=0;b<mat.matrix[0].length;b++){
+							if(mat.matrix[a][b]!= this.matrix[a][b]){
+						        return false;
+							}
+						}	
+					}return true;
+				}
+			}
+		}return false;
+	}
+
+    @Override
+    public Iterator <Double> iterator() {
+    
+        return new MatrixIterator();
+    }
+    
+    private class MatrixIterator implements Iterator <Double>{
+    
+    private int col=1;
+    private int fila= 0; 
+
+    private boolean hasNextColumna(){
+        
+        return (col < matrix[0].length-1)?true:false;
+        }
+
+    private boolean hasNextFila(){
+        
+        return (fila < matrix.length-1)?true:false;
+      }
+
+    public boolean hasNext(){
+          
+        if (this.hasNextColumna()){
+            return true;
+        }else return (this.hasNextFila())?true:false;
+    }
+   
+     @Override
+     public Double next(){
+        
+        if (hasNext()){
+            if(hasNextColumna()){
+                col++;
+            }
+            else{
+                col=0;
+                if(hasNextFila()){
+                    fila++;
+                }
+            }
+            return Matrix.this.matrix[this.fila][this.col];
+        }
+        return null;
+      }
     }
 }
+
